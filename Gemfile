@@ -11,22 +11,19 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'pg'
-gem 'pg_search'
-gem "paperclip", "~> 4.2"
 gem 'aws-sdk'
 gem 'devise'
+gem 'taglib-ruby'
 gem 'devise-async'
 gem 'cancancan'
-gem 'angularjs-rails'
 gem 'figaro'
 gem 'kaminari'
-gem 'google-api-client'
 gem 'font-awesome-sass'
 gem 'bourbon'
 gem 'neat'
+gem 'nokogiri'
 gem 'bitters'
-gem 'omniauth-google-oauth2'
-gem 'omniauth'
+gem 'builder', '~> 3.2.2'
 
 group :production do
   gem 'unicorn'
@@ -34,7 +31,6 @@ group :production do
 
 end
 
-gem "erb2haml", :group => :development
 
 
 group :development do
