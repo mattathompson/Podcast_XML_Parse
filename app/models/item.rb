@@ -30,19 +30,20 @@ class Item < ActiveRecord::Base
     builder = ::Builder::XmlMarkup.new(:target=>buffer, :indent=>2)
     builder.item { |b|
                   b.title(params[:title]);
-                  b.tag! ("itunes:author") { b.text! podcast.author };
-                  b.tag! ("description") { b.cdata! podcast.cdata };
-                  b.tag! ("itunes:subtitle") { b.text! params[:subtitle] };
-                  b.tag! ("itunes:summary") { b.text! podcast.summary };
+                  b.itunes :author, podcast.author
+                  b.tag! ("description") { b.cdata! podcast.cdata }
+                  b.itunes :subtitle, params[:subtitle]
+                  b.itunes :summary, podcast.summary
                   b.enclosure :url => params[:file_location],  :length => (params[:media].tempfile.size), :type => params[:media].content_type
                   b.link(podcast.link);
                   b.guid(params[:file_location]);
-                  b.pubDate(params[:pubDate].strftime("%a, %d %b %Y %H:%M:%S %z"));
+                  b.pubDate(Time.parse(params[:pubDate]).strftime("%a, %d %b %Y %H:%M:%S %z"));
                   b.category(params[:category]);
                   b.explicit(params[:explicit]);
                   b.duration(Time.at(length).utc.strftime("%H:%M:%S"));
                   b.keywords(podcast.keywords);
                 }
+    binding.pry
     items.add_previous_sibling(buffer)
     original.to_xml
   end
