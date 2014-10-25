@@ -1,4 +1,13 @@
+%h2 Title
 %p=@item.title
+%br
+%h2 Author
 %p=@item.author
+%br
+%h2 Main Link
 %p=@item.link
-%p=@item.description
+%br
+%h2 CDATA
+%p=@item.cdata
+
+= link_to "Add New Podcast", add_item_items_path(id: @item)
