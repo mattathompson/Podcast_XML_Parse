@@ -24,10 +24,11 @@ class Item < ActiveRecord::Base
     length = Item.media_length params[:media]
 
     original = Nokogiri::XML(params[:xml])
+
     items = original.xpath("//item")[0]
 
     buffer = ""
-    builder = ::Builder::XmlMarkup.new(:target=>buffer, :indent=>2)
+    builder = ::Builder::XmlMarkup.new(:target=>buffer, :indent=>6)
     builder.item { |b|
                   b.title(params[:title]);
                   b.itunes :author, podcast.author
@@ -43,9 +44,8 @@ class Item < ActiveRecord::Base
                   b.duration(Time.at(length).utc.strftime("%H:%M:%S"));
                   b.keywords(podcast.keywords);
                 }
-    binding.pry
     items.add_previous_sibling(buffer)
-    original.to_xml
+    original.to_xml(:indent => 6)
   end
 
 
