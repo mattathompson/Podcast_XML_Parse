@@ -1,4 +1,7 @@
 class ItemsController < ApplicationController
+  before_action :find_item, only: [:show, :edit, :update, :destory, :add_item]
+
+
 
   def index
     @items = current_user.items.all
@@ -21,11 +24,9 @@ class ItemsController < ApplicationController
   end
 
   def add_item
-    @item = current_user.items.find params[:id]
   end
 
   def show
-    @item = current_user.items.find params[:id]
   end
 
 
@@ -42,7 +43,6 @@ class ItemsController < ApplicationController
     else
       redirect_to :back
     end
-
   end
 
   def make
@@ -51,18 +51,15 @@ class ItemsController < ApplicationController
 
 
   def edit
-
-  end
-
-
-  def xmltest
-
-
   end
 
 
   def update
-
+    if @item.update? create_params
+      redirect_to @item
+    else
+      redirect_to :back
+    end
   end
 
 
@@ -72,6 +69,10 @@ class ItemsController < ApplicationController
 
 
   private
+
+  def find_item
+    @item = current_user.items.find params[:id]
+  end
 
   def create_params
     params[:item].permit(:title, :link, :keywords, :author, :cdata)

@@ -5,9 +5,33 @@
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
+    %link{:href => "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css", :rel => "stylesheet"}/
+
   %body
-    %p.notice
-      = notice
-    %p.alert
-      = alert
-    = yield
+    %header.navigation
+      .navigation-wrapper
+        %a.logo{:href => "javascript:void(0)"}
+          %img{:alt => "Logo Image", :src => "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_1.png"}
+        %a#js-mobile-menu.navigation-menu-button{:href => ""} MENU
+        .nav
+          %ul#navigation-menu
+            -if !@item.nil? && !current_user.nil?
+              %li.nav-link
+                =link_to "#{@item.title}", item_path(@item)
+              %li.nav-link
+                =link_to "Create Post", add_item_items_path(id: @item)
+              %li.nav-link
+                =link_to "Edit Podcast", edit_item_path(@item)
+            -if !current_user.nil?
+              %li.nav-link.more
+                %a{:href => "javascript:void(0)"} Podcasts
+                %ul.submenu
+                  - current_user.items.each do |item|
+                    %li
+                      =link_to "#{item.title}", item_path(item)
+        -if current_user
+          =link_to "Sign Out", destroy_user_session_path, :class => "sign-up", method: :delete
+        -else
+          =link_to "Sign In", new_user_session_path, :class => "sign-up"
+    .container
+      = yield
