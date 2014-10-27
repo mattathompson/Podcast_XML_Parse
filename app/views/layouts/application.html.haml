@@ -11,8 +11,7 @@
     %header.navigation
       .navigation-wrapper
         %a.logo{:href => "javascript:void(0)"}
-          %img{:alt => "Logo Image", :src => "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_1.png"}
-        %a#js-mobile-menu.navigation-menu-button{:href => ""} MENU
+          %i.fa.fa-beer.fa-3x
         .nav
           %ul#navigation-menu
             -if !@item.nil? && !current_user.nil?
