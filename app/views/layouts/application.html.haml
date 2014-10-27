@@ -10,17 +10,10 @@
   %body
     %header.navigation
       .navigation-wrapper
-        %a.logo{:href => "javascript:void(0)"}
+        %a.logo{:href => "#{root_path}"}
           %i.fa.fa-beer.fa-3x
         .nav
           %ul#navigation-menu
-            -if !@item.nil? && !current_user.nil?
-              %li.nav-link
-                =link_to "#{@item.title}", item_path(@item)
-              %li.nav-link
-                =link_to "Create Post", add_item_items_path(id: @item)
-              %li.nav-link
-                =link_to "Edit Podcast", edit_item_path(@item)
             -if !current_user.nil?
               %li.nav-link
                 =link_to "New Podcast", new_item_path
@@ -31,6 +24,16 @@
                     -if !item.id.nil?
                       %li
                         =link_to "#{item.title}", item_path(item)
+
+              -if !@item.nil? && !@item.id.nil?
+
+                %li.nav-link
+                  =link_to "#{@item.title}", item_path(@item)
+                %li.nav-link
+                  =link_to "Create Post", add_item_items_path(id: @item)
+                %li.nav-link
+                  =link_to "Edit Podcast", edit_item_path(@item)
+
         -if current_user
           =link_to "Sign Out", destroy_user_session_path, :class => "sign-up", method: :delete
         -else
