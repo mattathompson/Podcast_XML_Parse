@@ -14,7 +14,7 @@
           %i.fa.fa-beer.fa-3x
         .nav
           %ul#navigation-menu
-            -if !@item.id.nil? && !current_user.nil?
+            -if !@item.nil? && !current_user.nil?
               %li.nav-link
                 =link_to "#{@item.title}", item_path(@item)
               %li.nav-link
