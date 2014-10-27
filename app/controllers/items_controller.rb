@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
 
   def import
     @item = current_user.items.find params[:item].to_i
-    xml = Item.import(params, @item)
+    xml = @item.import(params, @item)
     send_data xml, filename: "Updated.xml"
   end
 
@@ -75,6 +75,7 @@ class ItemsController < ApplicationController
   end
 
   def create_params
+    params.permit(:audio)
     params[:item].permit(:title, :link, :keywords, :author, :cdata)
   end
 

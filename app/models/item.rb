@@ -1,27 +1,31 @@
 require 'open-uri'
+require 'uri'
+require 'net/http'
 require 'builder'
 require 'taglib'
 
 class Item < ActiveRecord::Base
   belongs_to :user
+  has_many :attachments
 
 
 
-  def self.media_length(media)
+  def media_length(media)
+    f = self.attachments.new(audio: media)
+    f.save!
+
     file = media.tempfile
-
     TagLib::MPEG::File.open(file.path) do |file|
       properties = file.audio_properties
       length = properties.length
     end
-
   end
 
 
 
 
-  def self.import(params, podcast)
-    length = Item.media_length params[:media]
+  def import(params, podcast)
+    length = self.media_length params[:audio]
 
     original = Nokogiri::XML(params[:xml])
 
@@ -35,7 +39,7 @@ class Item < ActiveRecord::Base
                   b.tag! ("description") { b.cdata! podcast.cdata }
                   b.itunes :subtitle, params[:subtitle]
                   b.itunes :summary, podcast.summary
-                  b.enclosure :url => params[:file_location],  :length => (params[:media].tempfile.size), :type => params[:media].content_type
+                  b.enclosure :url => params[:file_location],  :length => (params[:audio].tempfile.size), :type => params[:audio].content_type
                   b.link(podcast.link);
                   b.guid(params[:file_location]);
                   b.pubDate(Time.parse(params[:pubDate]).strftime("%a, %d %b %Y %H:%M:%S %z"));
