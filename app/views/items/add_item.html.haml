@@ -7,31 +7,22 @@
     = label_tag :title
     = text_field_tag :title
 
-    = label_tag :explicit
-    = text_field_tag :explicit
-
-    = label_tag :description
-    = text_area_tag :description
-
     = label_tag :subtitle
     = text_field_tag :subtitle
 
     = label_tag :category
     = text_field_tag :category
 
-    = label_tag :summary
-    = text_area_tag :summary
-
-    = label_tag :pubDate
-    = date_field_tag :pubDate
+    = label_tag "Date (YYYY-MM-DD)"
+    = datetime_field_tag :pubDate, nil ,:placeholder => "YYYY-MM-DD"
 
     = label_tag :file_location
     = text_field_tag :file_location
 
-    = label_tag :audio
+    = label_tag :audio, "Audio File"
     = file_field_tag :audio
 
-    = label_tag :xml
+    = label_tag :xml, "Rss XML File"
     = file_field_tag :xml
 
     = submit_tag "Import"

@@ -18,12 +18,14 @@ class ItemsController < ApplicationController
   end
 
   def import
+    binding.pry
     @item = current_user.items.find params[:item].to_i
     xml = @item.import(params, @item)
     send_data xml, filename: "Updated.xml"
   end
 
   def add_item
+
   end
 
   def show

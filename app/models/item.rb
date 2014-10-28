@@ -44,7 +44,7 @@ class Item < ActiveRecord::Base
                   b.guid(params[:file_location]);
                   b.pubDate(Time.parse(params[:pubDate]).strftime("%a, %d %b %Y %H:%M:%S %z"));
                   b.category(params[:category]);
-                  b.explicit(params[:explicit]);
+                  b.explicit("No");
                   b.duration(Time.at(length).utc.strftime("%H:%M:%S"));
                   b.keywords(podcast.keywords);
                 }
