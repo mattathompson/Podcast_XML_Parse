@@ -29,7 +29,6 @@ gem 'builder', '~> 3.2.2'
 group :production do
   gem 'unicorn'
   gem 'rails_12factor'
-
 end
 
 
