@@ -1,5 +1,16 @@
 
 
+$mobile: new-breakpoint(min-width 0px 4);
+$tablet: new-breakpoint(min-width 760px 8);
+
+.container {
+  @include outer-container;
+  margin-top: .8em;
+
+
+}
+
+
 body {
     margin: 0px;
 
@@ -101,10 +112,7 @@ body {
   @include shift(.5);
 }
 
-.container {
-  @include outer-container;
-  margin-top: .8em;
-}
+
 .project-wrapper-right {
   @include span-columns(10);
   @include omega();

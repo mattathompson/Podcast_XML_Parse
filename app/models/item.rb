@@ -11,8 +11,8 @@ class Item < ActiveRecord::Base
 
 
   def media_length(media)
-    f = self.attachments.new(audio: media)
-    f.save!
+    #f = self.attachments.new(audio: media)
+    #f.save!
 
     file = media.tempfile
     TagLib::MPEG::File.open(file.path) do |file|
@@ -43,7 +43,7 @@ class Item < ActiveRecord::Base
                   b.link(podcast.link);
                   b.guid(params[:file_location]);
                   b.pubDate(Time.parse(params[:pubDate]).strftime("%a, %d %b %Y %H:%M:%S %z"));
-                  b.category(params[:category]);
+                  b.category("Podcasting");
                   b.explicit("No");
                   b.duration(Time.at(length).utc.strftime("%H:%M:%S"));
                   b.keywords(podcast.keywords);

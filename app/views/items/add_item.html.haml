@@ -8,10 +8,7 @@
     = text_field_tag :title
 
     = label_tag :subtitle
-    = text_field_tag :subtitle
-
-    = label_tag :category
-    = text_field_tag :category
+    = text_area_tag :subtitle, nil, rows: 3
 
     = label_tag "Date (YYYY-MM-DD)"
     = datetime_field_tag :pubDate, nil ,:placeholder => "YYYY-MM-DD"
