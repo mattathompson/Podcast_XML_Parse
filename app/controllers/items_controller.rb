@@ -56,7 +56,7 @@ class ItemsController < ApplicationController
 
 
   def update
-    if @item.update? create_params
+    if @item.update! create_params
       redirect_to @item
     else
       redirect_to :back
