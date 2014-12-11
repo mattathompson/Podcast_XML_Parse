@@ -11,3 +11,5 @@
 %p=@item.cdata
 
 = link_to "Add New Podcast", add_item_items_path(id: @item)
+%br
+= link_to "Delete Podcast", item_path(@item), method: :delete
