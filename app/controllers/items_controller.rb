@@ -19,8 +19,11 @@ class ItemsController < ApplicationController
 
   def import
     @item = current_user.items.find params[:item].to_i
-    xml = @item.import(params, @item)
-    send_data xml, filename: "#{@item.title}.xml"
+    if @item.import(params, @item)
+      redirect_to root_path, notice: "Successfull Upload"
+    else
+      redirect_to :back, notice: "Something went wrong"
+    end
   end
 
   def add_item
@@ -83,7 +86,7 @@ class ItemsController < ApplicationController
 
   def create_params
     params.permit(:audio)
-    params[:item].permit(:title, :link, :keywords, :author, :cdata)
+    params[:item].permit(:title, :link, :keywords, :author, :cdata, :username, :address, :password, :file_name)
   end
 
 

@@ -3,6 +3,8 @@ require 'uri'
 require 'net/http'
 require 'builder'
 require 'taglib'
+require 'ftp'
+
 
 class Item < ActiveRecord::Base
   belongs_to :user
@@ -26,9 +28,11 @@ class Item < ActiveRecord::Base
 
   def import(params, podcast)
     length = self.media_length params[:audio]
-
-    original = Nokogiri::XML(params[:xml])
-
+    xml_from_ftp = ServerFTP.new(self.address, self.username, self.password)
+    xml_from_ftp.setup
+    xml_from_ftp.setDir('/public_html/the66/podcast')
+    xml_from_ftp.grab(self.file_name)
+    original = Nokogiri::XML(File.read(self.file_name))
     items = original.xpath("//item")[0]
 
     buffer = ""
@@ -50,6 +54,14 @@ class Item < ActiveRecord::Base
                 }
     items.add_previous_sibling(buffer)
     original.to_xml(:indent => 6)
+
+    new_file = File.new(self.file_name, "w")
+    new_file.write(original.to_xml)
+    new_file.close
+
+    xml_from_ftp.ftp.putbinaryfile(self.file_name)
+
+
   end
 
 
