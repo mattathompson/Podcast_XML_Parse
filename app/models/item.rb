@@ -30,7 +30,7 @@ class Item < ActiveRecord::Base
     length = self.media_length params[:audio]
     xml_from_ftp = ServerFTP.new(self.address, self.username, self.password)
     xml_from_ftp.setup
-    xml_from_ftp.setDir('/public_html/the66/podcast')
+    xml_from_ftp.setDir(self.podcast_dir)
     xml_from_ftp.grab(self.file_name)
     original = Nokogiri::XML(File.read(self.file_name))
     items = original.xpath("//item")[0]
