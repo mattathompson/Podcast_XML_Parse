@@ -18,18 +18,18 @@
   =f.text_field :file_name
 
   =f.label :audio_dir, "Audio File Path"
-  =f.text_field :audio_dir
+  =f.text_field :audio_dir, placeholder: "public-html/ratrace/podcast"
 
   =f.label :podcast_dir, "Podcast File Path"
-  =f.text_field :podcast_dir
+  =f.text_field :podcast_dir, placeholder: "public-html/acts/acts14-6-23.mp3"
 
   =f.label "FTP Address"
   =f.text_area :address
 
   =f.label :username
-  =f.text_area :username
+  =f.text_field :username
 
   =f.label :password
-  =f.text_area :password
+  =f.text_field :password, :type => "password"
 
   =f.submit
