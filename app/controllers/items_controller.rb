@@ -86,7 +86,7 @@ class ItemsController < ApplicationController
 
   def create_params
     params.permit(:audio)
-    params[:item].permit(:title, :link, :keywords, :author, :cdata, :username, :address, :password, :file_name)
+    params[:item].permit(:title, :link, :keywords, :author, :cdata, :username, :address, :password, :file_name, :audio_dir, :podcast_dir)
   end
 
 

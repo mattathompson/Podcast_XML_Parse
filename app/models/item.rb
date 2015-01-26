@@ -42,7 +42,7 @@ class Item < ActiveRecord::Base
                   b.itunes :author, podcast.author
                   b.tag! ("description") { b.cdata! podcast.cdata }
                   b.itunes :subtitle, params[:subtitle]
-                  b.itunes :summary, podcast.summary
+                  b.itunes :summary, podcast.cdata
                   b.enclosure :url => params[:file_location],  :length => (params[:audio].tempfile.size), :type => params[:audio].content_type
                   b.link(podcast.link);
                   b.guid(params[:file_location]);
