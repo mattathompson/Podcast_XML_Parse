@@ -7,9 +7,25 @@
 %h2 Main Link
 %p=@item.link
 %br
+%h2 Keywords
+%p=@item.keywords
+%br
 %h2 CDATA
 %p=@item.cdata
+%br
+%h2 HTP SERVER
+%p=@item.address
+%br
+%h2 Audio Directory
+%p=@item.audio_dir
+%br
+%h2 Podcast Directory
+%p=@item.podcast_dir
+%br
+%h2 Podcast File Name
+%p=@item.file_name
 
-= link_to "Add New Podcast", add_item_items_path(id: @item)
+
+= link_to "Create Post", add_item_items_path(id: @item)
 %br
 = link_to "Delete Podcast", item_path(@item), method: :delete

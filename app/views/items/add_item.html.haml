@@ -1,5 +1,7 @@
+%br
 .form-column
   %h2 Create Item
+  %br
   = form_tag import_items_path, multipart: true do
 
     = hidden_field_tag "item", @item.id
@@ -10,13 +12,16 @@
     = label_tag :subtitle
     = text_area_tag :subtitle, nil, rows: 3
 
-    = label_tag "Date (YYYY-MM-DD)"
+    = label_tag :pubDate, "Date (YYYY-MM-DD)"
     = datetime_field_tag :pubDate, nil ,:placeholder => "YYYY-MM-DD"
 
-    = label_tag :file_location
-    = text_field_tag :file_location
+    = label_tag :audio, "Audio File Location"
+    = text_field_tag :audio, nil, placeholder: "1-23-Acts12.mp3"
 
-    = label_tag :audio, "Audio File"
-    = file_field_tag :audio
+    = label_tag :file_type
+    = select_tag :file_type, options_for_select(["audio/mpeg", "video/mp4"])
+
+    = label_tag :audio_file_duration, "Audio File Duration"
+    = text_field_tag :audio_file_duration, nil, placeholder: "00:13:24"
 
     = submit_tag "Import"

@@ -27,11 +27,23 @@ class Item < ActiveRecord::Base
 
 
   def import(params, podcast)
-    length = self.media_length params[:audio]
+    xml_from_ftp = ServerFTP.new(self.address, self.username, self.password)
+    xml_from_ftp.setup
+
+
+
+    xml_from_ftp.setDir(self.audio_dir)
+    audio_length = xml_from_ftp.ftp.size(params[:audio])
+    full_audio_path = self.link + "/" + self.audio_dir.split("/").last + "/" + params[:audio]
+    xml_from_ftp.ftp.close
+
+
+
     xml_from_ftp = ServerFTP.new(self.address, self.username, self.password)
     xml_from_ftp.setup
     xml_from_ftp.setDir(self.podcast_dir)
     xml_from_ftp.grab(self.file_name)
+
     original = Nokogiri::XML(File.read(self.file_name))
     items = original.xpath("//item")[0]
 
@@ -43,13 +55,13 @@ class Item < ActiveRecord::Base
                   b.tag! ("description") { b.cdata! podcast.cdata }
                   b.itunes :subtitle, params[:subtitle]
                   b.itunes :summary, podcast.cdata
-                  b.enclosure :url => params[:file_location],  :length => (params[:audio].tempfile.size), :type => params[:audio].content_type
+                  b.enclosure :url => full_audio_path,  :length => (audio_length), :type => params[:file_type]
                   b.link(podcast.link);
-                  b.guid(params[:file_location]);
+                  b.guid(full_audio_path);
                   b.pubDate(Time.parse(params[:pubDate]).strftime("%a, %d %b %Y %H:%M:%S %z"));
                   b.category("Podcasting");
                   b.explicit("No");
-                  b.duration(Time.at(length).utc.strftime("%H:%M:%S"));
+                  b.duration(params[:audio_file_duration]);
                   b.keywords(podcast.keywords);
                 }
     items.add_previous_sibling(buffer)
@@ -60,7 +72,7 @@ class Item < ActiveRecord::Base
     new_file.close
 
     xml_from_ftp.ftp.putbinaryfile(self.file_name)
-
+    xml_from_ftp.ftp.close
 
   end
 
