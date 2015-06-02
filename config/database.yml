@@ -18,8 +18,7 @@ development:
   encoding: utf8
   database: podcast
   pool: 5
-  username:
-  password:
+  password: m200266756
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
