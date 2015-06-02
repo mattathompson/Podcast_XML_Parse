@@ -18,34 +18,34 @@ ActiveRecord::Schema.define(version: 20150126222509) do
 
   create_table "attachments", force: :cascade do |t|
     t.integer  "item_id"
-    t.string   "audio_file_name",    limit: 255
-    t.string   "audio_content_type", limit: 255
+    t.string   "audio_file_name"
+    t.string   "audio_content_type"
     t.integer  "audio_file_size"
     t.datetime "audio_updated_at"
   end
 
   create_table "items", force: :cascade do |t|
-    t.string  "title",       limit: 255
-    t.string  "link",        limit: 255
-    t.string  "author",      limit: 255
+    t.string  "title"
+    t.string  "link"
+    t.string  "author"
     t.text    "cdata"
-    t.string  "keywords",    limit: 255
+    t.string  "keywords"
     t.integer "user_id"
-    t.string  "address",     limit: 255
-    t.string  "username",    limit: 255
-    t.string  "password",    limit: 255
-    t.string  "file_name",   limit: 255
+    t.string  "address"
+    t.string  "username"
+    t.string  "password"
+    t.string  "file_name"
     t.string  "audio_dir"
     t.string  "podcast_dir"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
-    t.string   "reset_password_token",   limit: 255
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
